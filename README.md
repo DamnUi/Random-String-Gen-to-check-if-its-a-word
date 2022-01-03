@@ -2,6 +2,13 @@
 <h1>String Gen + Word Checker</h1><br>
 </div>
 
+## Hol' on, What does it do again?
+- Creates Random Strings.
+> `` ''.join(random.choices(string.ascii_lowercase, k = N))``  
+> Uses rudimentary string generation depending on how long i want it.
+- Checks If Any of Those Random Strings Are Words.
+>It gets a list of words from either [10000 Word List](https://www.mit.edu/~ecprice/wordlist.10000) or [100000 Word List](https://www.mit.edu/~ecprice/wordlist.100000)
+>the 10000 is technically faster but less hit chances and more chance of getting actual words, 100000 very slightly slower but more hit chances but high chance of getting abbreviations of random setences
 # Why?
 - Beginners
 >I made this for beginners in py looking to learn, i'm kinda of a beginner too so yeah
@@ -19,6 +26,6 @@ I'm then open to contributions to make it faster, or to improve its design, or j
     Fork  
                do changes 
                                Pull request
-
+Thank You! :)
 
 
