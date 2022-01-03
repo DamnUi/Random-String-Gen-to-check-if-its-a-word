@@ -21,7 +21,7 @@
 ![](https://cdn.discordapp.com/attachments/901172978199433286/927591473829003334/unknown.png)
 
 ## Want To Contribute?
-I'm then open to contributions to make it faster, or to improve its design, or just a better word list, etc.
+I'm more then open to contributions to make it faster, or to improve its design, or just a better word list, etc.
 
     Fork  
                do changes 
