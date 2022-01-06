@@ -15,6 +15,11 @@ def checkforimports(): #Checks if you have all modules installed if not it insta
     
     clearConsole()
     try:
+        import tqdm
+    except ModuleNotFoundError:
+        install("tqdm")
+    
+    try:
         import keyboard
     except ModuleNotFoundError:
         install("keyboard")
@@ -59,24 +64,26 @@ def checkforimports(): #Checks if you have all modules installed if not it insta
     except ModuleNotFoundError:
         install("colorama")
 checkforimports() #calls check for imports
-from typing import Counter
+import sys
+from tqdm import tqdm
+import threading #cant really explain
 import keyboard #provides keyboard support
 import requests #provides list of words
-import random #provides random 
+import random 
 import time #provides pausing options
 import getpass #provides name of user
 from PyDictionary import PyDictionary #provides meaning of words
 import string #provides letters
 from termcolor import colored #library to color text
-from colorama import init #so that colored text works on windows
+from colorama import * #so that colored text works on windows
 dictionary=PyDictionary()
-#imports completed
-#option to use 10000 or 100000 word list 10000 word list is faster but less chances and  100000 is slower but more hit chances
-#Asking if user is ready
-print(colored(rf"Hey {getpass.getuser()}, This code is attempts to generate random words and check if their real.", 'magenta'))
+init() #this is actually from colorama (i think)
+from10kor100k = 10000 #option to use 10000 or 100000 word list 10000 word list is faster but less chances and  100000 is slower but more hit chances
+#avg time to gen word in 10,000 = 29sec on 50 tries
+#avg time to gen word in 100,000 = 2-4sec on 50 tries (but most of the time we get abbriviations of word like "olpuh") 
+print(colored(rf"Hey {getpass.getuser()}, This code is attempts to generate random words and check if their real.", 'blue'))
 print(colored("Press Enter To Start! Press p to pause, r to restart, by Nonja made possible by google and python discord, sponcered by wishTM (get it?\ncause wish provides shit stuf- nvm)", 'green'))
 input()
-
 print(colored('Known Errors: It returns random words which are abrivations of sentences (somtimes)', 'red'))
 print(colored('prints Error: "The Following Error occured: list index out of range" but it doesnt really effect the code itself', 'red'))
 print(colored('Meaning of the word parameter sometimes bugs', 'red'))
@@ -85,7 +92,15 @@ time.sleep(.5)
 def randogen(N): 
     word = ''.join(random.choices(string.ascii_lowercase, k = N))
     return word
-      
+isaaadone = False
+def animate():
+    print(f'{Fore.LIGHTCYAN_EX}')
+    progressbar = tqdm([2,4,6,8])
+    for item in progressbar:
+        time.sleep(.3)
+        progressbar.set_description(' Loading ')
+    print(f'{Fore.RESET}')
+    
 
 #all the vars
 req = requests.get('https://www.mit.edu/~ecprice/wordlist.10000') #10000 faster but less hit chances and more chance of getting actual words, 100000 slower but more hit chances high chance of getting abrivations
@@ -101,6 +116,7 @@ cont = set(cont)
 Starttime = time.time()
 while istru < 3:
     if keyboard.is_pressed("r"):
+        another_god_damn_varible = 20000
         vor = 0
         count = 1
         hit = 10000
@@ -120,6 +136,9 @@ while istru < 3:
     #word = '' #this is cheats lol, i used this for dev stuff
     if word in cont:
         stop_time = time.time()
+        clearConsole()
+        t = threading.Thread(target=animate)
+        t.start()
         word_meaning = dictionary.meaning(rf"{word}")
         if word_meaning == None:
             word_meaning = colored('Meaning of the word not found', 'red')
@@ -131,22 +150,27 @@ while istru < 3:
         Time_taken = stop_time - Starttime
         Time_taken = round(Time_taken, 1)
         Time_taken -= vor
+        isaaadone = True
+        clearConsole()
         #meaning of words stuff done now all thats remaining is printing it
         print(colored(rf'Winning generated word: "{word}"', 'green'))
         print(colored(rf'Attempt that won: {count}', 'green'))
         print(colored(rf'Time That Took: {Time_taken} sec', 'green'))
         print(rf'{tx} {word_meaning}')
+        
+
         print(colored('To restart press "r", to stop press anything else', 'magenta'))
         
         #if you want it to run forever u can just delete everything after this line untill "break" and add istru = 0
         
         if keyboard.read_key() == "r":
+            another_god_damn_varible = 20000
             vor = 0
             count = 1
             hit = 10000
             a1 = 1
-            Starttime = time.time()
             howmanywin += 1
+            Starttime = time.time()
             istru = 0
         else:
             break            
@@ -154,18 +178,22 @@ while istru < 3:
         text = colored(rf'Attempt Number: {count}', 'magenta')
         text2 = colored(rf'Word That Was Generated: "{word}"', 'red')
         print(rf'{text} {text2}')
+        
+
 
     if count == hit:
-        clearConsole()
+        clearConsole()#calls the clear colsole function
         print(colored(rf"Hit {a1}0,000 attempts", 'green'))
+        
+
         a1 += 1
         hit += 10000
-        vor += .5
+        vor += .8
         if count == another_god_damn_varible: #idk why i even added this but i feel like this helps
-            print("Auto reset", 'green')
-            another_god_damn_varible + 20000
+            print(colored(f"Performed Auto Reset: {another_god_damn_varible}", 'cyan'))
+            another_god_damn_varible += 20000
             istru = 0
-        time.sleep(.5)
+        time.sleep(.8)
     
     count += 1
 
